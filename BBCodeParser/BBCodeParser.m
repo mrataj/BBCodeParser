@@ -140,6 +140,9 @@ static NSString *__closingTag = @"/";
 
 - (void)parse
 {
+    if ([self.delegate respondsToSelector:@selector(parser:didStartParsingCode:)])
+        [self.delegate parser:self didStartParsingCode:_code];
+    
     for (int i = 0; i < [_code length]; i++)
     {
         // Check if current character is announcing starting of new tag.
@@ -182,6 +185,9 @@ static NSString *__closingTag = @"/";
             }
         }
     }
+    
+    if ([self.delegate respondsToSelector:@selector(parser:didFinishParsingCode:)])
+        [self.delegate parser:self didFinishParsingCode:_code];
 }
 
 - (void)dealloc

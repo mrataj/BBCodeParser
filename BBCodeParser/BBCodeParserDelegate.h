@@ -17,5 +17,7 @@
 - (void)parser:(BBCodeParser *)parser didStartElementTag:(NSString *)tag attributes:(NSDictionary *)attributes;
 - (void)parser:(BBCodeParser *)parser didEndElement:(BBElement *)element;
 - (void)parser:(BBCodeParser *)parser foundCharacters:(NSString *)string;
+- (void)parser:(BBCodeParser *)parser didStartParsingCode:(NSString *)code;
+- (void)parser:(BBCodeParser *)parser didFinishParsingCode:(NSString *)code;
 
 @end
