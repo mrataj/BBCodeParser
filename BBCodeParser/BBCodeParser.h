@@ -7,7 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BBElement.h"
 
-@interface BBCodeParser : NSObject
+@interface BBCodeParser : NSObject {
+    NSString *_source;
+    
+    NSMutableArray *_elements;
+    BBElement *_currentElement;
+}
+
+@property (nonatomic, readonly) NSArray *elements;
+
+- (id)initWithString:(NSString *)source;
 
 @end
