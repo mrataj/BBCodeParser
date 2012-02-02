@@ -13,13 +13,9 @@ static NSString *__startTag = @"[";
 static NSString *__endTag = @"]";
 static NSString *__closingTag = @"/";
 
-@interface BBCodeParser (private)
-- (void)parse;
-@end
-
 @implementation BBCodeParser
 
-@synthesize elements=_elements;
+@synthesize elements=_elements, delegate=_delegate;
 
 - (id)init
 {
@@ -32,13 +28,12 @@ static NSString *__closingTag = @"/";
     return self;
 }
 
-- (id)initWithString:(NSString *)source
+- (id)initWithCode:(NSString *)code
 {
     self = [self init];
     if (self)
     {
-        _source = [source copy];
-        [self parse];
+        _code = [code copy];
     }
     
     return self;
@@ -62,6 +57,15 @@ static NSString *__closingTag = @"/";
         return nil;
     
     return [self getLastUnparsedElementFor:last];
+}
+
+- (NSDictionary *)attributesToDictionary:(NSArray *)attributes
+{
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:[attributes count]];
+    for (BBAttribute *attribute in attributes)
+        [dictionary setObject:attribute.value forKey:attribute.name];
+    
+    return dictionary;
 }
 
 - (void)parseStartedForTag:(NSString *)tag
@@ -103,15 +107,22 @@ static NSString *__closingTag = @"/";
     {
         [_elements addObject:element];
     }
-    
+        
     // Finally, release this element.
     [element release];
+    
+    // If needed, notify delegate object.
+    if ([self.delegate respondsToSelector:@selector(parser:didStartElementTag:attributes:)])
+        [self.delegate parser:self didStartElementTag:tag attributes:[self attributesToDictionary:attributes]];
 }
 
 - (void)parseFinishedForTag:(NSString *)tag
 {
     BBParsingElement *element = [self getLastUnparsedElement];
     [element setParsed:YES];
+    
+    if ([self.delegate respondsToSelector:@selector(parser:didEndElement:)])
+        [self.delegate parser:self didEndElement:element];
 }
 
 - (void)parseFound:(NSString *)character
@@ -122,14 +133,17 @@ static NSString *__closingTag = @"/";
         NSString *newValue = [NSString stringWithFormat:@"%@%@", element.value, character];
         [element setValue:newValue];
     }
+    
+    if ([self.delegate respondsToSelector:@selector(parser:foundCharacters:)])
+        [self.delegate parser:self foundCharacters:character];
 }
 
 - (void)parse
 {
-    for (int i = 0; i < [_source length]; i++)
+    for (int i = 0; i < [_code length]; i++)
     {
         // Check if current character is announcing starting of new tag.
-        NSString *currentCharacter = [_source substringWithRange:NSMakeRange(i, 1)];
+        NSString *currentCharacter = [_code substringWithRange:NSMakeRange(i, 1)];
         if ([currentCharacter isEqualToString:__startTag])
         {
             _currentTag = [[NSMutableString alloc] init];
@@ -172,8 +186,10 @@ static NSString *__closingTag = @"/";
 
 - (void)dealloc
 {
-    [_source release];
+    _delegate = nil;
+    [_code release];
     [_elements release];
+    [_currentTag release];
     [super dealloc];
 }
 

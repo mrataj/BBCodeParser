@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		110E512214DAF0940016EF74 /* BBCodeParserDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 110E512114DAF0940016EF74 /* BBCodeParserDelegate.h */; };
 		117E916B14DA870D002D6769 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 117E916A14DA870D002D6769 /* Foundation.framework */; };
 		117E917114DA870D002D6769 /* BBCodeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 117E917014DA870D002D6769 /* BBCodeParser.m */; };
 		117E917914DA870D002D6769 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 117E917814DA870D002D6769 /* SenTestingKit.framework */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		110E512114DAF0940016EF74 /* BBCodeParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBCodeParserDelegate.h; sourceTree = "<group>"; };
 		117E916714DA870D002D6769 /* libBBCodeParser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBBCodeParser.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		117E916A14DA870D002D6769 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		117E916F14DA870D002D6769 /* BBCodeParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBCodeParser.h; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				117E919214DA872E002D6769 /* BBElement.m */,
 				11E4CAD014DADB4C00B5BCD2 /* BBParsingElement.h */,
 				11E4CAD114DADB4C00B5BCD2 /* BBParsingElement.m */,
+				110E512114DAF0940016EF74 /* BBCodeParserDelegate.h */,
 				117E916F14DA870D002D6769 /* BBCodeParser.h */,
 				117E917014DA870D002D6769 /* BBCodeParser.m */,
 				117E919914DA87B7002D6769 /* Supporting Files */,
@@ -161,6 +164,7 @@
 				117E919714DA87A0002D6769 /* BBAttribute.h in Headers */,
 				117E919B14DA87B7002D6769 /* BBCodeParser-Prefix.pch in Headers */,
 				11E4CAD214DADB4C00B5BCD2 /* BBParsingElement.h in Headers */,
+				110E512214DAF0940016EF74 /* BBCodeParserDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

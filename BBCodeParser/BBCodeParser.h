@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "BBElement.h"
+#import "BBCodeParserDelegate.h"
 
 @interface BBCodeParser : NSObject {
-    NSString *_source;
+    NSString *_code;
+    id<BBCodeParserDelegate> _delegate;
     
     NSMutableArray *_elements;
     
@@ -19,7 +21,9 @@
 }
 
 @property (nonatomic, readonly) NSArray *elements;
+@property (nonatomic, assign) id<BBCodeParserDelegate> delegate;
 
-- (id)initWithString:(NSString *)source;
+- (id)initWithCode:(NSString *)source;
+- (void)parse;
 
 @end
