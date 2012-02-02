@@ -11,10 +11,10 @@
 
 static NSString *__startTag = @"[";
 static NSString *__endTag = @"]";
-static NSString *__startClosingTag = @"[/";
+static NSString *__closingTag = @"/";
 
 @interface BBCodeParser (private)
-- (void)parseCode:(NSString *)code;
+- (void)parse;
 @end
 
 @implementation BBCodeParser
@@ -38,7 +38,7 @@ static NSString *__startClosingTag = @"[/";
     if (self)
     {
         _source = [source copy];
-        [self parseCode:_source];
+        [self parse];
     }
     
     return self;
@@ -108,45 +108,65 @@ static NSString *__startClosingTag = @"[/";
     [element release];
 }
 
-- (void)parseFinishedForTag:(NSString *)tag withValue:(NSString *)value
+- (void)parseFinishedForTag:(NSString *)tag
 {
     BBParsingElement *element = [self getLastUnparsedElement];
-    [element setValue:value];
     [element setParsed:YES];
 }
 
-- (void)parseCode:(NSString *)code
+- (void)parseFound:(NSString *)character
 {
-    NSString *origin = [code copy];
-    
-    NSInteger startTagLocation = 0;
-    NSString *temp = [code copy];
-    
-    while (startTagLocation < [origin length])
+    BBParsingElement *element = [self getLastUnparsedElement];
+    if (element != nil)
     {
-        startTagLocation = [temp rangeOfString:__startTag].location;
-        if (startTagLocation > [origin length])
-            return;
-        
-        NSString *rest = [temp substringFromIndex:startTagLocation];
-        NSInteger endTagLocation = [rest rangeOfString:__endTag].location;
-        
-        NSString *element = [temp substringWithRange:NSMakeRange(startTagLocation, endTagLocation + 1)];
-        if ([element hasPrefix:__startClosingTag])
+        NSString *newValue = [NSString stringWithFormat:@"%@%@", element.value, character];
+        [element setValue:newValue];
+    }
+}
+
+- (void)parse
+{
+    for (int i = 0; i < [_source length]; i++)
+    {
+        // Check if current character is announcing starting of new tag.
+        NSString *currentCharacter = [_source substringWithRange:NSMakeRange(i, 1)];
+        if ([currentCharacter isEqualToString:__startTag])
         {
-            NSString *elementTagName = [element substringWithRange:NSMakeRange(2, [element length] - 3)];
-            NSString *elementTag = [elementTagName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            NSString *elementValue = nil;
-            [self parseFinishedForTag:elementTag withValue:elementValue];
-        }
-        else if ([element hasPrefix:__startTag])
-        {
-            NSString *elementTagName = [element substringWithRange:NSMakeRange(1, [element length] - 2)];
-            NSString *elementTag = [elementTagName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            [self parseStartedForTag:elementTag];
+            _currentTag = [[NSMutableString alloc] init];
+            _readingTag = YES;
         }
         
-        temp = [rest substringFromIndex:endTagLocation + 1];
+        // Otherwise, check if we just read the tag.
+        else if ([currentCharacter isEqualToString:__endTag])
+        {
+            if ([_currentTag hasPrefix:__closingTag])
+            {
+                NSString *trimmedTag = [_currentTag substringFromIndex:1];
+                [self parseFinishedForTag:trimmedTag];
+            }
+            else
+            {
+                [self parseStartedForTag:_currentTag];
+            }
+            
+            [_currentTag release];
+            _currentTag = nil;
+            
+            _readingTag = NO;
+        }
+        
+        // Otherwise just read.
+        else
+        {
+            if (_readingTag)
+            {
+                [_currentTag appendFormat:currentCharacter];
+            }
+            else
+            {
+                [self parseFound:currentCharacter];
+            }
+        }
     }
 }
 
