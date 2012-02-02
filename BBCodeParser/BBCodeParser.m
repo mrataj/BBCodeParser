@@ -100,6 +100,9 @@ static NSString *__closingTag = @"/";
         NSMutableArray *exitingChildren = [NSMutableArray arrayWithArray:parentElement.elements];
         [exitingChildren addObject:element];
         [parentElement setElements:exitingChildren];
+        
+        NSString *newValue = [NSString stringWithFormat:@"%@[%d]", parentElement.value, [parentElement.elements count] - 1];
+        [parentElement setValue:newValue];
     }
     
     // Otherwise create new element in root array.
