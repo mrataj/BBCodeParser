@@ -113,7 +113,7 @@ static NSString *__closingTag = @"/";
     
     // If needed, notify delegate object.
     if ([self.delegate respondsToSelector:@selector(parser:didStartElementTag:attributes:)])
-        [self.delegate parser:self didStartElementTag:tag attributes:[self attributesToDictionary:attributes]];
+        [self.delegate parser:self didStartElementTag:tagName attributes:[self attributesToDictionary:attributes]];
 }
 
 - (void)parseFinishedForTag:(NSString *)tag
