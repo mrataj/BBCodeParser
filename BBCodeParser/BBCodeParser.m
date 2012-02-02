@@ -65,7 +65,7 @@ static NSString *__closingTag = @"/";
     for (BBAttribute *attribute in attributes)
         [dictionary setObject:attribute.value forKey:attribute.name];
     
-    return dictionary;
+    return [dictionary autorelease];
 }
 
 - (void)parseStartedForTag:(NSString *)tag

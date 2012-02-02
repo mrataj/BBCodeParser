@@ -43,7 +43,7 @@ static NSString *__equalSign = @"=";
             @throw [NSException exceptionWithName:@"Invalid attribute!" reason:@"Attribute must have only one equal sign (=) included." userInfo:nil];
         
         NSString *name = [components objectAtIndex:0];       
-        _name = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        _name = [[name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] retain];
         
         NSString *value = [components objectAtIndex:1];
         NSString *trimmed = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
