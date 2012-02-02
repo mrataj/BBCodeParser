@@ -45,9 +45,16 @@ static NSString *__equalSign = @"=";
         NSString *name = [components objectAtIndex:0];       
         _name = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
-        // TODO: Remove quotes.
         NSString *value = [components objectAtIndex:1];
-        _value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString *trimmed = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        NSMutableString *mutable = [NSMutableString stringWithString:trimmed];
+        [mutable replaceOccurrencesOfString:@"\""
+                                 withString:@""
+                                    options:NSCaseInsensitiveSearch
+                                      range:NSMakeRange(0, [mutable length])];
+        
+        _value = [[NSString alloc] initWithString:mutable];
     }
     return self;
 }
