@@ -7,7 +7,6 @@
 //
 
 #import "BBCodeParser.h"
-#import "BBParsingElement.h"
 
 static NSString *__startTag = @"[";
 static NSString *__endTag = @"]";
@@ -15,14 +14,14 @@ static NSString *__closingTag = @"/";
 
 @implementation BBCodeParser
 
-@synthesize elements=_elements, delegate=_delegate;
+@synthesize element=_element, delegate=_delegate;
 
 - (id)init
 {
     self = [super init];
     if (self)
     {
-        _elements = [[NSMutableArray alloc] init];
+        _element = [[BBParsingElement alloc] init];
     }
     
     return self;
@@ -52,9 +51,9 @@ static NSString *__closingTag = @"/";
 
 - (BBParsingElement *)getLastUnparsedElement
 {
-    BBParsingElement *last = [_elements lastObject];
-    if (last.parsed)
-        return nil;
+    BBParsingElement *last = [_element.elements lastObject];
+    if (last.parsed || last == nil)
+        return _element;
     
     return [self getLastUnparsedElementFor:last];
 }
@@ -93,23 +92,14 @@ static NSString *__closingTag = @"/";
     }
     [element setAttributes:attributes];
     
-    // If this element has parent, append it him.
+    // Append children to last unparsed element.
     BBParsingElement *parentElement = [self getLastUnparsedElement];
-    if (parentElement != nil)
-    {
-        NSMutableArray *exitingChildren = [NSMutableArray arrayWithArray:parentElement.elements];
-        [exitingChildren addObject:element];
-        [parentElement setElements:exitingChildren];
-        
-        NSString *newValue = [NSString stringWithFormat:@"%@[%d]", parentElement.value, [parentElement.elements count] - 1];
-        [parentElement setValue:newValue];
-    }
+    NSMutableArray *exitingChildren = [NSMutableArray arrayWithArray:parentElement.elements];
+    [exitingChildren addObject:element];
+    [parentElement setElements:exitingChildren];
     
-    // Otherwise create new element in root array.
-    else
-    {
-        [_elements addObject:element];
-    }
+    NSString *newText = [NSString stringWithFormat:@"%@[%d]", parentElement.text, [parentElement.elements count] - 1];
+    [parentElement setText:newText];
         
     // Finally, release this element.
     [element release];
@@ -131,11 +121,8 @@ static NSString *__closingTag = @"/";
 - (void)parseFound:(NSString *)character
 {
     BBParsingElement *element = [self getLastUnparsedElement];
-    if (element != nil)
-    {
-        NSString *newValue = [NSString stringWithFormat:@"%@%@", element.value, character];
-        [element setValue:newValue];
-    }
+    NSString *newText = [NSString stringWithFormat:@"%@%@", element.text, character];
+    [element setText:newText];
     
     if ([self.delegate respondsToSelector:@selector(parser:foundCharacters:)])
         [self.delegate parser:self foundCharacters:character];
@@ -197,7 +184,7 @@ static NSString *__closingTag = @"/";
 {
     _delegate = nil;
     [_code release];
-    [_elements release];
+    [_element release];
     [_currentTag release];
     [super dealloc];
 }

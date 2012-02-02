@@ -10,7 +10,7 @@
 
 @implementation BBElement
 
-@synthesize tag=_tag, value=_value, attributes=_attributes, elements=_elements;
+@synthesize tag=_tag, text=_text, attributes=_attributes, elements=_elements;
 
 - (id)init
 {
@@ -18,7 +18,7 @@
     if (self)
     {
         _tag = [[NSString alloc] init];
-        _value = [[NSString alloc] init];
+        _text = [[NSString alloc] init];
         _attributes = [[NSArray alloc] init];
         _elements = [[NSArray alloc] init];
     }
@@ -38,7 +38,7 @@
 - (void)dealloc
 {
     [_tag release];
-    [_value release];
+    [_text release];
     [_attributes release];
     [_elements release];
     [super dealloc];
