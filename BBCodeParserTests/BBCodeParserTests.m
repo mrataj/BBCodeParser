@@ -23,7 +23,7 @@
 
 - (void)testExamples
 {
-    NSString *code = @"[quote][user id=\"23\"]Jason Newille[/user] wrote: [bold]You[/bold] have to be careful!. [/quote] [user id=\"42\"]Kate Cameron[/user] has writen a hundred miles long exam about supermassive black holes, saved it to file [document id=\"89\" name=\"title\"]Seminar paper.pdf[/document] and finally sent it to her professor of physics [user id=\"75\"]dr. Gregory Watson[/user].";
+    NSString *code = @"[quote][user id=\"23\"]Jason Newille[/user] wrote: [bold][italic]You[/italic][/bold] have to be careful!. [/quote] [user id=\"42\"]Kate Cameron[/user] has writen a hundred miles long exam about supermassive black holes, saved it to file [document id=\"89\" name=\"title\"]Seminar paper.pdf[/document] and finally sent it to her professor of physics [user id=\"75\"]dr. Gregory Watson[/user].";
     
     BBCodeParser *parser = [[BBCodeParser alloc] initWithString:code];
     

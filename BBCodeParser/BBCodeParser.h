@@ -11,9 +11,7 @@
 
 @interface BBCodeParser : NSObject {
     NSString *_source;
-    
     NSMutableArray *_elements;
-    BBElement *_currentElement;
 }
 
 @property (nonatomic, readonly) NSArray *elements;
