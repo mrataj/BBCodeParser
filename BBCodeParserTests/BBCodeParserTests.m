@@ -23,24 +23,30 @@
 
 - (void)testExamples
 {
-    NSString *code = @"[user id=\"42\"]Kate Cameron[/user] has writen a hundred miles long exam about supermassive black holes, saved it to file [document id=\"89\" name=\"title\"]Seminar paper.pdf[/document] and finally sent it to her professor of physics [user id=\"75\"]dr. Gregory Watson[/user].";
+    NSString *code = @"[quote][user id=\"23\"]Jason Newille[/user] wrote: [bold]You[/bold] have to be careful!. [/quote] [user id=\"42\"]Kate Cameron[/user] has writen a hundred miles long exam about supermassive black holes, saved it to file [document id=\"89\" name=\"title\"]Seminar paper.pdf[/document] and finally sent it to her professor of physics [user id=\"75\"]dr. Gregory Watson[/user].";
     
     BBCodeParser *parser = [[BBCodeParser alloc] initWithString:code];
     
     STAssertNotNil(parser.elements, @"Elements cannot be nil!");
-    STAssertTrue([parser.elements count] == 3, @"There must be 3 elements");
+    STAssertTrue([parser.elements count] == 4, @"There must be 3 elements");
     for (BBElement *element in parser.elements)
     {
         NSInteger elementIndex = [parser.elements indexOfObject:element];
         if (elementIndex == 0)
         {
-            STAssertTrue([element.tag isEqualToString:@"user"], @"First element's tag is not valid.");
-            BBAttribute *attribute = [element attributeWithName:@"id"];
-            STAssertNotNil(attribute, @"Attribute 'id' wasn't found.");
+            
+            STAssertTrue([element.tag isEqualToString:@"quote"], @"Element's tag is not valid.");
+            STAssertTrue([element.elements count] == 2, @"Subelements count isn't valid.");
         }
         else if (elementIndex == 1)
         {
-            STAssertTrue([element.tag isEqualToString:@"document"], @"Second element's tag is not valid.");
+            STAssertTrue([element.tag isEqualToString:@"user"], @"Element's tag is not valid.");
+            BBAttribute *attribute = [element attributeWithName:@"id"];
+            STAssertNotNil(attribute, @"Attribute 'id' wasn't found.");
+        }
+        else if (elementIndex == 2)
+        {
+            STAssertTrue([element.tag isEqualToString:@"document"], @"Element's tag is not valid.");
             BBAttribute *attribute1 = [element attributeWithName:@"id"];
             STAssertNotNil(attribute1, @"Attribute 'id' wasn't found.");
             BBAttribute *attribute2 = [element attributeWithName:@"name"];
@@ -48,7 +54,7 @@
         }
         else
         {
-            STAssertTrue([element.tag isEqualToString:@"user"], @"Third element's tag is not valid.");
+            STAssertTrue([element.tag isEqualToString:@"user"], @"Element's tag is not valid.");
             BBAttribute *attribute = [element attributeWithName:@"id"];
             STAssertNotNil(attribute, @"Attribute 'id' wasn't found.");          
         }
