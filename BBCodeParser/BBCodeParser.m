@@ -13,7 +13,8 @@ static NSString *__endTag = @"]";
 static NSString *__startClosingTag = @"[/";
 
 @interface BBCodeParser (private)
-- (void)parse;
+- (void)parseString:(NSString *)source;
+- (void)parseString:(NSString *)source parentElement:(BBElement *)parent;
 @end
 
 @implementation BBCodeParser
@@ -37,17 +38,17 @@ static NSString *__startClosingTag = @"[/";
     if (self)
     {
         _source = [source copy];
-        [self parse];
+        [self parseString:_source];
     }
     
     return self;
 }
 
-- (void)startedParsingElement:(NSString *)element
+- (void)startedParsingElement:(NSString *)tag withParentElement:(BBElement *)parent
 {
     _currentElement = [[BBElement alloc] init];
     
-    NSArray *components = [element componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSArray *components = [tag componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (components == nil || [components count] == 0)
         @throw [NSException exceptionWithName:@"Invalid components count!" reason:@"Element tag isn't valid." userInfo:nil];
     
@@ -67,7 +68,7 @@ static NSString *__startClosingTag = @"[/";
     [_currentElement setAttributes:attributes];
 }
 
-- (void)finishedParsingElement:(NSString *)element
+- (void)finishedParsingElement:(NSString *)tag withParentElement:(BBElement *)parent
 {
     [_currentElement setValue:@"VAL"];
     [_elements addObject:_currentElement];
@@ -75,15 +76,17 @@ static NSString *__startClosingTag = @"[/";
     _currentElement = nil;
 }
 
-- (void)parse
+- (void)parseString:(NSString *)source parentElement:(BBElement *)parent
 {
-    NSInteger startTagLocation = 0;
-    NSString *temp = [_source copy];
+    NSString *origin = [source copy];
     
-    while (startTagLocation < [_source length])
+    NSInteger startTagLocation = 0;
+    NSString *temp = [source copy];
+    
+    while (startTagLocation < [origin length])
     {
         startTagLocation = [temp rangeOfString:__startTag].location;
-        if (startTagLocation > [_source length])
+        if (startTagLocation > [origin length])
             return;
         
         NSString *rest = [temp substringFromIndex:startTagLocation];
@@ -94,17 +97,22 @@ static NSString *__startClosingTag = @"[/";
         {
             NSString *elementName = [element substringWithRange:NSMakeRange(2, [element length] - 3)];
             NSString *trimmed = [elementName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            [self finishedParsingElement:trimmed];
+            [self finishedParsingElement:trimmed withParentElement:parent];
         }
         else if ([element hasPrefix:__startTag])
         {
             NSString *elementName = [element substringWithRange:NSMakeRange(1, [element length] - 2)];
             NSString *trimmed = [elementName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            [self startedParsingElement:trimmed];
+            [self startedParsingElement:trimmed withParentElement:parent];
         }
         
         temp = [rest substringFromIndex:endTagLocation + 1];
-    }
+    }    
+}
+
+- (void)parseString:(NSString *)source
+{
+    [self parseString:source parentElement:nil];
 }
 
 - (void)dealloc
