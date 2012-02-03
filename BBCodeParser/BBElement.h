@@ -14,12 +14,14 @@
     NSString *_text;
     NSArray *_attributes;
     NSArray *_elements;
+    BBElement *_parent;
 }
 
 @property (nonatomic, copy) NSString *tag;
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, retain) NSArray *attributes;
 @property (nonatomic, retain) NSArray *elements;
+@property (nonatomic, retain) BBElement *parent;
 
 - (BBAttribute *)attributeWithName:(NSString *)name;
 

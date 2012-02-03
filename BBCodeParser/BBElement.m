@@ -10,7 +10,7 @@
 
 @implementation BBElement
 
-@synthesize tag=_tag, text=_text, attributes=_attributes, elements=_elements;
+@synthesize tag=_tag, text=_text, attributes=_attributes, elements=_elements, parent=_parent;
 
 - (id)init
 {
@@ -35,12 +35,25 @@
     return nil;
 }
 
+- (void)setElements:(NSArray *)elements
+{
+    if (elements == _elements)
+        return;
+    
+    [_elements release];
+    _elements = [elements retain];
+    
+    for (BBElement *subelement in _elements)
+        [subelement setParent:self];
+}
+
 - (void)dealloc
 {
     [_tag release];
     [_text release];
     [_attributes release];
     [_elements release];
+    [_parent release];
     [super dealloc];
 }
 
