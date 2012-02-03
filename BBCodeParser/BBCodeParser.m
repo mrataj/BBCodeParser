@@ -58,15 +58,6 @@ static NSString *__closingTag = @"/";
     return [self getLastUnparsedElementFor:last];
 }
 
-- (NSDictionary *)attributesToDictionary:(NSArray *)attributes
-{
-    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithCapacity:[attributes count]];
-    for (BBAttribute *attribute in attributes)
-        [dictionary setObject:attribute.value forKey:attribute.name];
-    
-    return [dictionary autorelease];
-}
-
 - (void)parseStartedForTag:(NSString *)tag
 {
     BBParsingElement *element = [[BBParsingElement alloc] init];
@@ -106,7 +97,7 @@ static NSString *__closingTag = @"/";
     
     // If needed, notify delegate object.
     if ([self.delegate respondsToSelector:@selector(parser:didStartElementTag:attributes:)])
-        [self.delegate parser:self didStartElementTag:tagName attributes:[self attributesToDictionary:attributes]];
+        [self.delegate parser:self didStartElementTag:tagName attributes:attributes];
 }
 
 - (void)parseFinishedForTag:(NSString *)tag

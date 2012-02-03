@@ -14,7 +14,7 @@
 @protocol BBCodeParserDelegate <NSObject>
 
 @optional
-- (void)parser:(BBCodeParser *)parser didStartElementTag:(NSString *)tag attributes:(NSDictionary *)attributes;
+- (void)parser:(BBCodeParser *)parser didStartElementTag:(NSString *)tag attributes:(NSArray *)attributes;
 - (void)parser:(BBCodeParser *)parser didEndElement:(BBElement *)element;
 - (void)parser:(BBCodeParser *)parser foundCharacters:(NSString *)string;
 - (void)parser:(BBCodeParser *)parser didStartParsingCode:(NSString *)code;
