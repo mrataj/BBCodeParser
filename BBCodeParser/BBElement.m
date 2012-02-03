@@ -21,6 +21,7 @@
         _text = [[NSString alloc] init];
         _attributes = [[NSArray alloc] init];
         _elements = [[NSArray alloc] init];
+        _parent = nil;
     }
     
     return self;
