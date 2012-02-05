@@ -21,7 +21,7 @@
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, retain) NSArray *attributes;
 @property (nonatomic, retain) NSArray *elements;
-@property (nonatomic, retain) BBElement *parent;
+@property (nonatomic, assign) BBElement *parent;
 
 - (BBAttribute *)attributeWithName:(NSString *)name;
 

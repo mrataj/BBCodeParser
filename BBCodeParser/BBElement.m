@@ -54,7 +54,7 @@
     [_text release];
     [_attributes release];
     [_elements release];
-    [_parent release];
+    _parent = nil;
     [super dealloc];
 }
 
