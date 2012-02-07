@@ -23,13 +23,16 @@
 
 - (void)testExamples
 {
-    NSString *code = @"This is [bold]test[/bold] message. [quote]Person [user]Johnny Newille[/user] created this.[/quote]. See you soon.";
+    NSString *code = @"This is [bold]test[/bold] message. [quote user=\"23\" name=\"David Cole\"]Person [user]Johnny Newille[/user] created this.[/quote]. See you soon.";
     
     BBCodeParser *parser = [[BBCodeParser alloc] initWithCode:code];
     [parser parse];
     
     STAssertNotNil(parser.element, @"Elements cannot be nil!");
     STAssertTrue([parser.element.elements count] == 2, @"There must be 2 elements");
+    
+    BBElement *quoteElement = [parser.element.elements objectAtIndex:1];
+    STAssertTrue([quoteElement.attributes count] == 2, @"There must be two attributes.");
     
     [parser release];
 }

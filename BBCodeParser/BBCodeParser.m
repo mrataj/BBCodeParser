@@ -58,6 +58,55 @@ static NSString *__closingTag = @"/";
     return [self getLastUnparsedElementFor:last];
 }
 
+- (NSArray *)getAttributesFromTag:(NSString *)tag
+{
+    NSArray *components = [tag componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *tagName = [components objectAtIndex:0];
+    
+    NSString *attributeString = [tag substringFromIndex:[tagName length]];
+    
+    BOOL parsingName = YES, parsingValue = NO;
+    NSMutableString *currentName = [NSMutableString string], *currentValue = nil;
+    
+    NSMutableArray *attributes = [NSMutableArray array];
+    for (int i = 0; i < [attributeString length]; i++)
+    {
+        NSString *currentCharacter = [attributeString substringWithRange:NSMakeRange(i, 1)];
+                
+        if (parsingName && ![currentCharacter isEqualToString:@"="])
+            [currentName appendString:currentCharacter];
+        
+        else if (parsingValue && ![currentCharacter isEqualToString:@"\""])
+            [currentValue appendString:currentCharacter];
+        
+        if ([currentCharacter isEqualToString:@"="])
+        {
+            // We ended parsing name
+            parsingValue = YES;
+            parsingName = NO;
+            currentValue = [NSMutableString string];
+        }
+        else if ([currentCharacter isEqualToString:@"\""])
+        {
+            // We ended parsing value
+            if ([currentValue length] != 0)
+            {
+                BBAttribute *attribute = [[BBAttribute alloc] init];
+                [attribute setName:[currentName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+                [attribute setValue:[currentValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+                [attributes addObject:attribute];
+                [attribute release];
+                
+                parsingValue = NO;
+                parsingName = YES;
+                currentName = [NSMutableString string];
+            }
+        }
+    }
+    
+    return attributes;
+}
+
 - (void)parseStartedForTag:(NSString *)tag
 {
     BBParsingElement *element = [[BBParsingElement alloc] init];
@@ -72,15 +121,7 @@ static NSString *__closingTag = @"/";
     [element setTag:tagName];
     
     // Set element's attributes.
-    NSMutableArray *attributes = [NSMutableArray array];
-    for (int i = 1; i < [components count]; i++)
-    {
-        NSString *attributeString = [components objectAtIndex:i];
-        
-        BBAttribute *attribute = [[BBAttribute alloc] initWithString:attributeString];
-        [attributes addObject:attribute];
-        [attribute release];
-    }
+    NSArray *attributes = [self getAttributesFromTag:tag];
     [element setAttributes:attributes];
     
     // Append children to last unparsed element.
