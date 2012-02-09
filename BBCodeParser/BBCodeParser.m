@@ -14,7 +14,7 @@ static NSString *__closingTag = @"/";
 
 @implementation BBCodeParser
 
-@synthesize element=_element, delegate=_delegate;
+@synthesize element=_element, delegate=_delegate, code=_code;
 
 - (id)init
 {
@@ -27,14 +27,13 @@ static NSString *__closingTag = @"/";
     return self;
 }
 
-- (id)initWithCode:(NSString *)code
+- (id)initWithTags:(NSArray *)tags
 {
     self = [self init];
     if (self)
     {
-        _code = [code copy];
+        _tags = [tags retain];
     }
-    
     return self;
 }
 
@@ -107,6 +106,21 @@ static NSString *__closingTag = @"/";
     return attributes;
 }
 
+- (BOOL)textStartsWithAllowedTag:(NSString *)text
+{
+    for (NSString *tag in _tags)
+    {
+        NSString *validBegining1 = [NSString stringWithFormat:@"%@%@%@", __startTag, tag, __endTag]; // "[bold]"
+        NSString *validBegining2 = [NSString stringWithFormat:@"%@%@%@%@", __startTag, __closingTag, tag, __endTag]; // "[/bold]"
+        NSString *validBegining3 = [NSString stringWithFormat:@"%@%@ ", __startTag, tag]; // "[bold "
+        
+        if ([text hasPrefix:validBegining1] || [text hasPrefix:validBegining2] || [text hasPrefix:validBegining3])
+            return YES;
+    }
+    
+    return NO;
+}
+
 - (void)parseStartedForTag:(NSString *)tag
 {
     BBParsingElement *element = [[BBParsingElement alloc] init];
@@ -169,14 +183,14 @@ static NSString *__closingTag = @"/";
     {
         // Check if current character is announcing starting of new tag.
         NSString *currentCharacter = [_code substringWithRange:NSMakeRange(i, 1)];
-        if ([currentCharacter isEqualToString:__startTag])
+        if ([currentCharacter isEqualToString:__startTag] && [self textStartsWithAllowedTag:[_code substringFromIndex:i]])
         {
             _currentTag = [[NSMutableString alloc] init];
             _readingTag = YES;
         }
         
         // Otherwise, check if we just read the tag.
-        else if ([currentCharacter isEqualToString:__endTag])
+        else if ([currentCharacter isEqualToString:__endTag] && _currentTag != nil)
         {
             if ([_currentTag hasPrefix:__closingTag])
             {
@@ -219,6 +233,7 @@ static NSString *__closingTag = @"/";
 {
     _delegate = nil;
     [_code release];
+    [_tags release];
     [_element release];
     [_currentTag release];
     [super dealloc];

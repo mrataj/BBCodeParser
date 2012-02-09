@@ -21,11 +21,23 @@
     [super tearDown];
 }
 
++ (NSArray *)getTags
+{
+    static NSArray *tags;
+    if (tags == nil)
+    {
+        tags = [[NSArray alloc] initWithObjects:@"bold", @"quote", @"user", nil];
+    }
+    return tags;
+}
+
 - (void)testExamples
 {
-    NSString *code = @"This is [bold]test[/bold] message. [quote user=\"23\" name=\"David Cole\"]Person [user]Johnny Newille[/user] created this.[/quote]. See you soon.";
+    NSString *code = @"This[d] is [bold]test[/bold] message. [quote user=\"23\" name=\"David Cole\"]Person [user]Johnny Newille[/user] created this.[/quote]. See you soon.";
     
-    BBCodeParser *parser = [[BBCodeParser alloc] initWithCode:code];
+    NSArray *tags = [BBCodeParserTests getTags];
+    BBCodeParser *parser = [[BBCodeParser alloc] initWithTags:tags];
+    [parser setCode:code];
     [parser parse];
     
     STAssertNotNil(parser.element, @"Elements cannot be nil!");
