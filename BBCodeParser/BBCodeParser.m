@@ -208,6 +208,9 @@ static NSString *__closingTag = @"/";
         }
     }
     
+    // In the end, finish parsing root element.
+    [self parseFinishedForTag:nil];
+    
     if ([self.delegate respondsToSelector:@selector(parser:didFinishParsingCode:)])
         [self.delegate parser:self didFinishParsingCode:_code];
 }
