@@ -31,10 +31,9 @@
 {
     NSMutableString *format = [[NSMutableString alloc] initWithString:_format];
     
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(\\{[0-9]+\\})"
-                                                                           options:NSRegularExpressionCaseInsensitive
-                                                                             error:nil];
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"(\\{[0-9]+\\})" options:NSRegularExpressionCaseInsensitive error:nil];
     [regex replaceMatchesInString:format options:0 range:NSMakeRange(0, [_format length]) withTemplate:@""];
+    [regex release];
     
     return [format autorelease];
 }

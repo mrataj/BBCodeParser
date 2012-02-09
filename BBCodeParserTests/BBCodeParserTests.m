@@ -33,14 +33,12 @@
 
 - (void)testExamples
 {
-    NSString *code = @"This[d] is [bold]test[/bold] message. [quote user=\"23\" name=\"David Cole\"]Person [user]Johnny Newille[/user] created this.[/quote]. See you soon.";
+    NSString *code = @"This{{13}} [invalid tag] is [bold]test[/bold] message. [quote user=\"23\" name=\"David Cole\"]Person [user]Johnny Newille[/user] created this.[/quote]. See you soon.";
     
     NSArray *tags = [BBCodeParserTests getTags];
     BBCodeParser *parser = [[BBCodeParser alloc] initWithTags:tags];
     [parser setCode:code];
     [parser parse];
-    
-    NSString *elementText = parser.element.text;
     
     STAssertNotNil(parser.element, @"Elements cannot be nil!");
     STAssertTrue([parser.element.elements count] == 2, @"There must be 2 elements");
