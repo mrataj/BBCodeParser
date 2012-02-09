@@ -40,6 +40,8 @@
     [parser setCode:code];
     [parser parse];
     
+    NSString *elementText = parser.element.text;
+    
     STAssertNotNil(parser.element, @"Elements cannot be nil!");
     STAssertTrue([parser.element.elements count] == 2, @"There must be 2 elements");
     

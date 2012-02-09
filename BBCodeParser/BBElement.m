@@ -10,7 +10,7 @@
 
 @implementation BBElement
 
-@synthesize tag=_tag, text=_text, attributes=_attributes, elements=_elements, parent=_parent;
+@synthesize tag=_tag, format=_format, attributes=_attributes, elements=_elements, parent=_parent;
 
 - (id)init
 {
@@ -18,13 +18,25 @@
     if (self)
     {
         _tag = [[NSString alloc] init];
-        _text = [[NSString alloc] init];
+        _format = [[NSString alloc] init];
         _attributes = [[NSArray alloc] init];
         _elements = [[NSArray alloc] init];
         _parent = nil;
     }
     
     return self;
+}
+
+- (NSString *)text
+{
+    NSMutableString *format = [[NSMutableString alloc] initWithString:_format];
+    
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(\\{[0-9]+\\})"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:nil];
+    [regex replaceMatchesInString:format options:0 range:NSMakeRange(0, [_format length]) withTemplate:@""];
+    
+    return [format autorelease];
 }
 
 - (BBAttribute *)attributeWithName:(NSString *)name
@@ -51,7 +63,7 @@
 - (void)dealloc
 {
     [_tag release];
-    [_text release];
+    [_format release];
     [_attributes release];
     [_elements release];
     _parent = nil;

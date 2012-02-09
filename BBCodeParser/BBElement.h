@@ -11,14 +11,15 @@
 
 @interface BBElement : NSObject {
     NSString *_tag;
-    NSString *_text;
+    NSString *_format;
     NSArray *_attributes;
     NSArray *_elements;
     BBElement *_parent;
 }
 
 @property (nonatomic, copy) NSString *tag;
-@property (nonatomic, copy) NSString *text;
+@property (nonatomic, readonly) NSString *text;
+@property (nonatomic, copy) NSString *format;
 @property (nonatomic, retain) NSArray *attributes;
 @property (nonatomic, retain) NSArray *elements;
 @property (nonatomic, assign) BBElement *parent;

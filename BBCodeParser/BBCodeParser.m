@@ -144,9 +144,9 @@ static NSString *__closingTag = @"/";
     [exitingChildren addObject:element];
     [parentElement setElements:exitingChildren];
     
-    NSString *newText = [NSString stringWithFormat:@"%@[%d]", parentElement.text, [parentElement.elements count] - 1];
-    [parentElement setText:newText];
-        
+    NSString *newFormat = [NSString stringWithFormat:@"%@{%d}", parentElement.format, [parentElement.elements count] - 1];
+    [parentElement setFormat:newFormat];
+    
     // Finally, release this element.
     [element release];
     
@@ -167,8 +167,8 @@ static NSString *__closingTag = @"/";
 - (void)parseFound:(NSString *)character
 {
     BBParsingElement *element = [self getLastUnparsedElement];
-    NSString *newText = [NSString stringWithFormat:@"%@%@", element.text, character];
-    [element setText:newText];
+    NSString *newFormat = [NSString stringWithFormat:@"%@%@", element.format, character];
+    [element setFormat:newFormat];
     
     if ([self.delegate respondsToSelector:@selector(parser:foundCharacters:)])
         [self.delegate parser:self foundCharacters:character];
