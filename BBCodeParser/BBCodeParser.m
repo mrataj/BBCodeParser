@@ -78,18 +78,22 @@ static NSString *__closingTag = @"/";
         else if (parsingValue && ![currentCharacter isEqualToString:@"\""])
             [currentValue appendString:currentCharacter];
         
-        if ([currentCharacter isEqualToString:@"="])
+        if ([currentCharacter isEqualToString:@"="] && parsingName)
         {
             // We ended parsing name
             parsingValue = YES;
             parsingName = NO;
             currentValue = [NSMutableString string];
         }
-        else if ([currentCharacter isEqualToString:@"\""])
+        else if ([currentCharacter isEqualToString:@"\""] && parsingValue)
         {
             // We ended parsing value
             if ([currentValue length] != 0)
             {
+                // If we didn't parse last character and next character is not space, that means that quote doesn't represent end of value.
+                if (i + 1 < [attributeString length] && ![[attributeString substringWithRange:NSMakeRange(i + 1, 1)] isEqualToString:@" "])
+                    break;
+                
                 BBAttribute *attribute = [[BBAttribute alloc] init];
                 [attribute setName:[currentName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
                 [attribute setValue:[currentValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
