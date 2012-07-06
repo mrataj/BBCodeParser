@@ -30,4 +30,6 @@
 - (id)initWithTags:(NSArray *)tags;
 - (void)parse;
 
++ (NSString *)tagRegexPattern;
+
 @end

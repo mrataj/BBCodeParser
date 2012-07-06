@@ -7,6 +7,7 @@
 //
 
 #import "BBElement.h"
+#import "BBCodeParser.h"
 
 @implementation BBElement
 
@@ -31,7 +32,9 @@
 {
     NSMutableString *format = [[NSMutableString alloc] initWithString:_format];
     
-    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"(\\{[0-9]+\\})" options:NSRegularExpressionCaseInsensitive error:nil];
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:[BBCodeParser tagRegexPattern]
+                                                                      options:NSRegularExpressionCaseInsensitive
+                                                                        error:nil];
     [regex replaceMatchesInString:format options:0 range:NSMakeRange(0, [_format length]) withTemplate:@""];
     [regex release];
     

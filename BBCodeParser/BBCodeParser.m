@@ -16,6 +16,9 @@ static NSString *__closingTag = @"/";
 
 @synthesize element=_element, delegate=_delegate, code=_code;
 
+#pragma mark -
+#pragma mark - Init
+
 - (id)init
 {
     self = [super init];
@@ -36,6 +39,9 @@ static NSString *__closingTag = @"/";
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark - Parsing
 
 - (BBParsingElement *)getLastUnparsedElementFor:(BBParsingElement *)parent
 {
@@ -148,7 +154,11 @@ static NSString *__closingTag = @"/";
     [exitingChildren addObject:element];
     [parentElement setElements:exitingChildren];
     
-    NSString *newFormat = [NSString stringWithFormat:@"%@{%d}", parentElement.format, [parentElement.elements count] - 1];
+    NSString *newFormat = [NSString stringWithFormat:@"%@%@%d%@",
+                           parentElement.format,
+                           [BBCodeParser startTagCharacter],
+                           [parentElement.elements count] - 1,
+                           [BBCodeParser endTagCharacter]];
     [parentElement setFormat:newFormat];
     
     // Finally, release this element.
@@ -232,6 +242,33 @@ static NSString *__closingTag = @"/";
     if ([self.delegate respondsToSelector:@selector(parser:didFinishParsingCode:)])
         [self.delegate parser:self didFinishParsingCode:_code];
 }
+
+#pragma mark -
+#pragma mark - Tags
+
++ (NSString *)startTagCharacter
+{
+    // WARNING!
+    // If you change this, change also tagRegexPattern function!
+    return @"{BB_";
+}
+
++ (NSString *)endTagCharacter
+{
+    // WARNING!
+    // If you change this, change also tagRegexPattern function!
+    return @"_BB}";
+}
+
++ (NSString *)tagRegexPattern
+{
+    // WARNING!
+    // If you change this, you may also want to change startTagCharacter or endTagCharacter functions!
+    return @"(\\{BB_[0-9]+_BB\\})";
+}
+
+#pragma mark -
+#pragma mark - Dealloc
 
 - (void)dealloc
 {
