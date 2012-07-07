@@ -133,7 +133,7 @@ static NSString *__closingTag = @"/";
 
 - (void)parseStartedForTag:(NSString *)tag
 {
-    BBParsingElement *element = [[BBParsingElement alloc] init];
+    BBParsingElement *element = [[[BBParsingElement alloc] init] autorelease];
     
     // Check if tag is valid BBCode tag.
     NSArray *components = [tag componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -160,10 +160,7 @@ static NSString *__closingTag = @"/";
                            [parentElement.elements count] - 1,
                            [BBCodeParser endTagCharacter]];
     [parentElement setFormat:newFormat];
-    
-    // Finally, release this element.
-    [element release];
-    
+        
     // If needed, notify delegate object.
     if ([self.delegate respondsToSelector:@selector(parser:didStartElementTag:attributes:)])
         [self.delegate parser:self didStartElementTag:tagName attributes:attributes];
