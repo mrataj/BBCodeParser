@@ -213,7 +213,7 @@
 		117E915E14DA870D002D6769 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0450;
 			};
 			buildConfigurationList = 117E916114DA870D002D6769 /* Build configuration list for PBXProject "BBCodeParser" */;
 			compatibilityVersion = "Xcode 3.2";

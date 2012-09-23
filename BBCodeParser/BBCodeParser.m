@@ -224,7 +224,7 @@ static NSString *__closingTag = @"/";
         {
             if (_readingTag)
             {
-                [_currentTag appendFormat:currentCharacter];
+                [_currentTag appendString:currentCharacter];
             }
             else
             {
