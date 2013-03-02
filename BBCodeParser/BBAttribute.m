@@ -26,7 +26,7 @@ static NSString *__equalSign = @"=";
 
 - (BBAttribute *)attributeFromString:(NSString *)attributeString
 {
-    return [[[BBAttribute alloc] initWithString:attributeString] autorelease];
+    return [[BBAttribute alloc] initWithString:attributeString];
 }
 
 - (id)initWithString:(NSString *)attributeString
@@ -43,7 +43,7 @@ static NSString *__equalSign = @"=";
             @throw [NSException exceptionWithName:@"Invalid attribute!" reason:@"Attribute must have only one equal sign (=) included." userInfo:nil];
         
         NSString *name = [components objectAtIndex:0];       
-        _name = [[name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] retain];
+        _name = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
         NSString *value = [components objectAtIndex:1];
         NSString *trimmed = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -59,11 +59,5 @@ static NSString *__equalSign = @"=";
     return self;
 }
 
-- (void)dealloc
-{
-    [_name release];
-    [_value release];
-    [super dealloc];
-}
 
 @end

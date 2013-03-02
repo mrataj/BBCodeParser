@@ -36,9 +36,8 @@
                                                                       options:NSRegularExpressionCaseInsensitive
                                                                         error:nil];
     [regex replaceMatchesInString:format options:0 range:NSMakeRange(0, [_format length]) withTemplate:@""];
-    [regex release];
     
-    return [format autorelease];
+    return format;
 }
 
 - (BBAttribute *)attributeWithName:(NSString *)name
@@ -55,8 +54,7 @@
     if (elements == _elements)
         return;
     
-    [_elements release];
-    _elements = [elements retain];
+    _elements = elements;
     
     for (BBElement *subelement in _elements)
         [subelement setParent:self];
@@ -64,12 +62,7 @@
 
 - (void)dealloc
 {
-    [_tag release];
-    [_format release];
-    [_attributes release];
-    [_elements release];
     _parent = nil;
-    [super dealloc];
 }
 
 @end

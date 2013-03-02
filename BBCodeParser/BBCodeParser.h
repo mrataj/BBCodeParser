@@ -15,7 +15,7 @@
 @interface BBCodeParser : NSObject {
     NSArray *_tags;
     NSString *_code;
-    id<BBCodeParserDelegate> _delegate;
+    id<BBCodeParserDelegate> __weak _delegate;
     
     BBParsingElement *_element;
     
@@ -24,7 +24,7 @@
 }
 
 @property (nonatomic, readonly) BBParsingElement *element;
-@property (nonatomic, assign) id<BBCodeParserDelegate> delegate;
+@property (nonatomic, weak) id<BBCodeParserDelegate> delegate;
 @property (nonatomic, copy) NSString *code;
 
 - (id)initWithTags:(NSArray *)tags;

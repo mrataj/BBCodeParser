@@ -46,7 +46,6 @@
     BBElement *quoteElement = [parser.element.elements objectAtIndex:1];
     STAssertTrue([quoteElement.attributes count] == 2, @"There must be two attributes.");
     
-    [parser release];
 }
 
 @end

@@ -14,15 +14,15 @@
     NSString *_format;
     NSArray *_attributes;
     NSArray *_elements;
-    BBElement *_parent;
+    BBElement *__weak _parent;
 }
 
 @property (nonatomic, copy) NSString *tag;
-@property (nonatomic, readonly) NSString *text;
+@property (weak, nonatomic, readonly) NSString *text;
 @property (nonatomic, copy) NSString *format;
-@property (nonatomic, retain) NSArray *attributes;
-@property (nonatomic, retain) NSArray *elements;
-@property (nonatomic, assign) BBElement *parent;
+@property (nonatomic, strong) NSArray *attributes;
+@property (nonatomic, strong) NSArray *elements;
+@property (nonatomic, weak) BBElement *parent;
 
 - (BBAttribute *)attributeWithName:(NSString *)name;
 

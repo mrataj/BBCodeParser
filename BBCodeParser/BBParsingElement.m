@@ -12,9 +12,5 @@
 
 @synthesize parsed=_parsed;
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 @end

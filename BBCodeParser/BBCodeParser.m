@@ -35,7 +35,7 @@ static NSString *__closingTag = @"/";
     self = [self init];
     if (self)
     {
-        _tags = [tags retain];
+        _tags = tags;
     }
     return self;
 }
@@ -104,7 +104,6 @@ static NSString *__closingTag = @"/";
                 [attribute setName:[currentName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
                 [attribute setValue:[currentValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
                 [attributes addObject:attribute];
-                [attribute release];
                 
                 parsingValue = NO;
                 parsingName = YES;
@@ -133,7 +132,7 @@ static NSString *__closingTag = @"/";
 
 - (void)parseStartedForTag:(NSString *)tag
 {
-    BBParsingElement *element = [[[BBParsingElement alloc] init] autorelease];
+    BBParsingElement *element = [[BBParsingElement alloc] init];
     
     // Check if tag is valid BBCode tag.
     NSArray *components = [tag componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -213,7 +212,6 @@ static NSString *__closingTag = @"/";
                 [self parseStartedForTag:_currentTag];
             }
             
-            [_currentTag release];
             _currentTag = nil;
             
             _readingTag = NO;
@@ -270,11 +268,6 @@ static NSString *__closingTag = @"/";
 - (void)dealloc
 {
     _delegate = nil;
-    [_code release];
-    [_tags release];
-    [_element release];
-    [_currentTag release];
-    [super dealloc];
 }
 
 @end
