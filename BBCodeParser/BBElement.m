@@ -49,6 +49,30 @@
     return nil;
 }
 
+- (BBElement *)elementAtIndex:(NSInteger)index
+{
+    NSInteger endIndex = _startIndex + [self length];
+    if (index < _startIndex || index > endIndex)
+        return nil;
+    
+    for (BBElement *element in _elements)
+    {
+        BBElement *found = [element elementAtIndex:index];
+        if (found != nil)
+            return found;
+    }
+    
+    return self;
+}
+
+- (NSInteger)length
+{
+    NSInteger length = [self.text length];
+    for (BBElement *element in _elements)
+        length += [element length];
+    return length;
+}
+
 - (void)setElements:(NSArray *)elements
 {
     if (elements == _elements)

@@ -21,6 +21,7 @@
     
     BOOL _readingTag;
     NSMutableString *_currentTag;
+    NSInteger _length;
 }
 
 @property (nonatomic, readonly) BBParsingElement *element;

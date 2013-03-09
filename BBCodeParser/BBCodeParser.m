@@ -133,6 +133,7 @@ static NSString *__closingTag = @"/";
 - (void)parseStartedForTag:(NSString *)tag
 {
     BBParsingElement *element = [[BBParsingElement alloc] init];
+    [element setStartIndex:_length];
     
     // Check if tag is valid BBCode tag.
     NSArray *components = [tag componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -182,10 +183,14 @@ static NSString *__closingTag = @"/";
     
     if ([self.delegate respondsToSelector:@selector(parser:foundCharacters:)])
         [self.delegate parser:self foundCharacters:character];
+    
+    _length++;
 }
 
 - (void)parse
 {
+    _length = 0;
+    
     if ([self.delegate respondsToSelector:@selector(parser:didStartParsingCode:)])
         [self.delegate parser:self didStartParsingCode:_code];
     

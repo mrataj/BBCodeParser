@@ -15,6 +15,7 @@
     NSArray *_attributes;
     NSArray *_elements;
     BBElement *__weak _parent;
+    NSInteger _startIndex;
 }
 
 @property (nonatomic, copy) NSString *tag;
@@ -23,7 +24,9 @@
 @property (nonatomic, strong) NSArray *attributes;
 @property (nonatomic, strong) NSArray *elements;
 @property (nonatomic, weak) BBElement *parent;
+@property (nonatomic, assign) NSInteger startIndex;
 
 - (BBAttribute *)attributeWithName:(NSString *)name;
+- (BBElement *)elementAtIndex:(NSInteger)index;
 
 @end
