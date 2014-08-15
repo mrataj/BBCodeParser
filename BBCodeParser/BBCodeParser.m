@@ -122,6 +122,7 @@ static NSString *__closingTag = @"/";
         NSString *validBegining1 = [NSString stringWithFormat:@"%@%@%@", __startTag, tag, __endTag]; // "[bold]"
         NSString *validBegining2 = [NSString stringWithFormat:@"%@%@%@%@", __startTag, __closingTag, tag, __endTag]; // "[/bold]"
         NSString *validBegining3 = [NSString stringWithFormat:@"%@%@ ", __startTag, tag]; // "[bold "
+        NSString *validBegining3 = [NSString stringWithFormat:@"%@%@=", __startTag, tag]; // "[color="
         
         if ([text hasPrefix:validBegining1] || [text hasPrefix:validBegining2] || [text hasPrefix:validBegining3])
             return YES;
