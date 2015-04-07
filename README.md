@@ -1,6 +1,6 @@
 # BBCodeParser
 
-[![CI Status](http://img.shields.io/travis/Miha Rataj/BBCodeParser.svg?style=flat)](https://travis-ci.org/Miha Rataj/BBCodeParser)
+[![CI Status](http://img.shields.io/travis/mrataj/BBCodeParser.svg?style=flat)](https://travis-ci.org/mrataj/BBCodeParser)
 [![Version](https://img.shields.io/cocoapods/v/BBCodeParser.svg?style=flat)](http://cocoapods.org/pods/BBCodeParser)
 [![License](https://img.shields.io/cocoapods/l/BBCodeParser.svg?style=flat)](http://cocoapods.org/pods/BBCodeParser)
 [![Platform](https://img.shields.io/cocoapods/p/BBCodeParser.svg?style=flat)](http://cocoapods.org/pods/BBCodeParser)
