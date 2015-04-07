@@ -1,5 +1,11 @@
 language: objective-c
-podfile: Example/Podfile
+
+before_script:
+  - export LANG=en_US.UTF-8
+  - cd Example ; pod install ; cd ..
+
 xcode_workspace: Example/BBCodeParser.xcworkspace
+
 xcode_scheme: BBCodeParser-Example
 
+xcode_sdk: iphonesimulator
