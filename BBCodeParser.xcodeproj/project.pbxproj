@@ -10,7 +10,6 @@
 		110E512214DAF0940016EF74 /* BBCodeParserDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 110E512114DAF0940016EF74 /* BBCodeParserDelegate.h */; };
 		117E916B14DA870D002D6769 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 117E916A14DA870D002D6769 /* Foundation.framework */; };
 		117E917114DA870D002D6769 /* BBCodeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 117E917014DA870D002D6769 /* BBCodeParser.m */; };
-		117E917914DA870D002D6769 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 117E917814DA870D002D6769 /* SenTestingKit.framework */; };
 		117E917B14DA870D002D6769 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 117E917A14DA870D002D6769 /* UIKit.framework */; };
 		117E917C14DA870D002D6769 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 117E916A14DA870D002D6769 /* Foundation.framework */; };
 		117E917F14DA870D002D6769 /* libBBCodeParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 117E916714DA870D002D6769 /* libBBCodeParser.a */; };
@@ -42,7 +41,6 @@
 		117E916F14DA870D002D6769 /* BBCodeParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBCodeParser.h; sourceTree = "<group>"; };
 		117E917014DA870D002D6769 /* BBCodeParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBCodeParser.m; sourceTree = "<group>"; };
 		117E917714DA870D002D6769 /* BBCodeParserTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BBCodeParserTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		117E917814DA870D002D6769 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		117E917A14DA870D002D6769 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		117E918214DA870D002D6769 /* BBCodeParserTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BBCodeParserTests-Info.plist"; sourceTree = "<group>"; };
 		117E918414DA870D002D6769 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -70,7 +68,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				117E917914DA870D002D6769 /* SenTestingKit.framework in Frameworks */,
 				117E917B14DA870D002D6769 /* UIKit.framework in Frameworks */,
 				117E917C14DA870D002D6769 /* Foundation.framework in Frameworks */,
 				117E917F14DA870D002D6769 /* libBBCodeParser.a in Frameworks */,
@@ -103,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				117E916A14DA870D002D6769 /* Foundation.framework */,
-				117E917814DA870D002D6769 /* SenTestingKit.framework */,
 				117E917A14DA870D002D6769 /* UIKit.framework */,
 			);
 			name = Frameworks;
@@ -205,7 +201,7 @@
 			name = BBCodeParserTests;
 			productName = BBCodeParserTests;
 			productReference = 117E917714DA870D002D6769 /* BBCodeParserTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -213,7 +209,8 @@
 		117E915E14DA870D002D6769 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastTestingUpgradeCheck = 0620;
+				LastUpgradeCheck = 0620;
 			};
 			buildConfigurationList = 117E916114DA870D002D6769 /* Build configuration list for PBXProject "BBCodeParser" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -306,8 +303,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -317,10 +321,15 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -329,12 +338,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
@@ -374,13 +394,12 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BBCodeParser/Supporting Files/BBCodeParser-Prefix.pch";
 				INFOPLIST_FILE = "BBCodeParserTests/BBCodeParserTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -390,13 +409,12 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BBCodeParser/Supporting Files/BBCodeParser-Prefix.pch";
 				INFOPLIST_FILE = "BBCodeParserTests/BBCodeParserTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

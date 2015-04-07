@@ -155,7 +155,7 @@ static NSString *__closingTag = @"/";
     [exitingChildren addObject:element];
     [parentElement setElements:exitingChildren];
     
-    NSString *newFormat = [NSString stringWithFormat:@"%@%@%d%@",
+    NSString *newFormat = [NSString stringWithFormat:@"%@%@%lu%@",
                            parentElement.format,
                            [BBCodeParser startTagCharacter],
                            [parentElement.elements count] - 1,

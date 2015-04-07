@@ -40,8 +40,8 @@
     [parser setCode:code];
     [parser parse];
     
-    STAssertNotNil(parser.element, @"Root element cant be nil");
-    STAssertTrue([parser.element.elements count] == 1, @"There must be 1 element");
+    XCTAssertNotNil(parser.element, @"Root element cant be nil");
+    XCTAssertTrue([parser.element.elements count] == 1, @"There must be 1 element");
 }
 
 - (void)testAttributes
@@ -54,11 +54,11 @@
     [parser parse];
     
     BBElement *quoteElement = [parser.element.elements objectAtIndex:0];
-    STAssertTrue([quoteElement.attributes count] == 2, @"There must be two attributes.");
+    XCTAssertTrue([quoteElement.attributes count] == 2, @"There must be two attributes.");
     
     BBAttribute *attribute = [quoteElement.attributes objectAtIndex:0];
-    STAssertTrue([attribute.name isEqualToString:@"user"], @"Invalid attribute name");
-    STAssertTrue([attribute.value isEqualToString:@"23"], @"Invalid attribute value");
+    XCTAssertTrue([attribute.name isEqualToString:@"user"], @"Invalid attribute name");
+    XCTAssertTrue([attribute.value isEqualToString:@"23"], @"Invalid attribute value");
 }
 
 - (void)testInvalidTag
@@ -70,7 +70,7 @@
     [parser setCode:code];
     [parser parse];
     
-    STAssertTrue([parser.element.elements count] == 1, @"There must be 1 element");
+    XCTAssertTrue([parser.element.elements count] == 1, @"There must be 1 element");
 }
 
 - (void)testBrokenTag
@@ -82,7 +82,7 @@
     [parser setCode:code];
     [parser parse];
     
-    STAssertTrue([parser.element.elements count] == 0, @"There must be zero elements");
+    XCTAssertTrue([parser.element.elements count] == 0, @"There must be zero elements");
 }
 
 - (void)testNotSupportedTag
@@ -94,7 +94,7 @@
     [parser setCode:code];
     [parser parse];
     
-    STAssertTrue([parser.element.elements count] == 0, @"There must be zero elements");
+    XCTAssertTrue([parser.element.elements count] == 0, @"There must be zero elements");
 }
 
 - (void)testStartIndex
@@ -107,13 +107,13 @@
     [parser parse];
     
     BBElement *quoteElement = [parser.element.elements objectAtIndex:0];
-    STAssertTrue(quoteElement.startIndex == 0, @"Invalid start index");
+    XCTAssertTrue(quoteElement.startIndex == 0, @"Invalid start index");
     
     BBElement *userElement = [quoteElement.elements objectAtIndex:0];
-    STAssertTrue(userElement.startIndex == 7, @"Invalid start index");
+    XCTAssertTrue(userElement.startIndex == 7, @"Invalid start index");
     
     BBElement *boldElement = [quoteElement.elements objectAtIndex:1];
-    STAssertTrue(boldElement.startIndex == 30, @"Invalid start index");
+    XCTAssertTrue(boldElement.startIndex == 30, @"Invalid start index");
 }
 
 @end
