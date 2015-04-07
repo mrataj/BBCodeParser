@@ -13,12 +13,14 @@ To use this library in your project, copy files in BBCodeParser folder into your
 
 Usage example:
 
+```objective-c
 NSString *code = @""; // Your BB code here ...
 BBCodeParser *parser = [[BBCodeParser alloc] initWithString:code];
 for (BBElement *element in parser.elements)
 {
 // ...
 }
+```
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
