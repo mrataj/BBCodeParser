@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'BBCodeParser' target in the 'BBCodeParser' project
-//
-
-#ifdef __OBJC__
-    #import <Foundation/Foundation.h>
-#endif
