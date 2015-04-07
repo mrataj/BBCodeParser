@@ -1,0 +1,5 @@
+language: objective-c
+xcode_workspace: Example/BBCodeParser.xcworkspace
+xcode_scheme: BBCodeParser-Example
+podfile: Example
+

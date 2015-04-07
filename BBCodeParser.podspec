@@ -10,12 +10,9 @@
 Pod::Spec.new do |s|
   s.name             = "BBCodeParser"
   s.version          = "0.1.0"
-  s.summary          = "A short description of BBCodeParser."
+  s.summary          = "BBCodeParser is open source objective C library for parsing BBCode (Bulletin Board Code)."
   s.description      = <<-DESC
-                       An optional longer description of BBCodeParser
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
+                       To use this library in your project, copy files in BBCodeParser folder into your project. Then, include "BBCodeParser.h" file wherever you want to parse your code.
                        DESC
   s.homepage         = "https://github.com/mrataj/BBCodeParser"
   s.license          = 'MIT'
