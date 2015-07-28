@@ -1,8 +1,8 @@
 {
   "name": "BBCodeParser",
   "version": "0.1.0",
-  "summary": "A short description of BBCodeParser.",
-  "description": "                       An optional longer description of BBCodeParser\n\n                       * Markdown format.\n                       * Don't worry about the indent, we strip it!\n",
+  "summary": "BBCodeParser is open source objective C library for parsing BBCode (Bulletin Board Code).",
+  "description": "                       To use this library in your project, copy files in BBCodeParser folder into your project. Then, include \"BBCodeParser.h\" file wherever you want to parse your code.\n",
   "homepage": "https://github.com/mrataj/BBCodeParser",
   "license": "MIT",
   "authors": {

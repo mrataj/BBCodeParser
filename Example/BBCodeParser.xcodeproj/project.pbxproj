@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		27F7996CD6F822F85E4A51FB /* libPods-BBCodeParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6333713F9E3F6ED0D4FFA917 /* libPods-BBCodeParser.a */; };
+		2C7C83DF1B677C3700D12701 /* BBCodeParser_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7C83DE1B677C3700D12701 /* BBCodeParser_OSX.m */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -17,6 +18,9 @@
 
 /* Begin PBXFileReference section */
 		0D4274915C9A9830F8F127BA /* Pods-BBCodeParser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BBCodeParser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BBCodeParser/Pods-BBCodeParser.debug.xcconfig"; sourceTree = "<group>"; };
+		2C7C83DA1B677C3700D12701 /* BBCodeParser_OSX.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BBCodeParser_OSX.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C7C83DD1B677C3700D12701 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C7C83DE1B677C3700D12701 /* BBCodeParser_OSX.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBCodeParser_OSX.m; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* BBCodeParser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BBCodeParser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -35,6 +39,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2C7C83D71B677C3700D12701 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6003F5AB195388D20070C39A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -49,11 +60,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C7C83DB1B677C3700D12701 /* BBCodeParser_OSX */ = {
+			isa = PBXGroup;
+			children = (
+				2C7C83DE1B677C3700D12701 /* BBCodeParser_OSX.m */,
+				2C7C83DC1B677C3700D12701 /* Supporting Files */,
+			);
+			path = BBCodeParser_OSX;
+			sourceTree = "<group>";
+		};
+		2C7C83DC1B677C3700D12701 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2C7C83DD1B677C3700D12701 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F5B5195388D20070C39A /* Tests */,
+				2C7C83DB1B677C3700D12701 /* BBCodeParser_OSX */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
 				A7A2601230860550F4F6F5A8 /* Pods */,
@@ -65,6 +94,7 @@
 			children = (
 				6003F58A195388D20070C39A /* BBCodeParser.app */,
 				6003F5AE195388D20070C39A /* BBCodeParser.xctest */,
+				2C7C83DA1B677C3700D12701 /* BBCodeParser_OSX.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -122,6 +152,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2C7C83D91B677C3700D12701 /* BBCodeParser_OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C7C83E21B677C3700D12701 /* Build configuration list for PBXNativeTarget "BBCodeParser_OSX" */;
+			buildPhases = (
+				2C7C83D61B677C3700D12701 /* Sources */,
+				2C7C83D71B677C3700D12701 /* Frameworks */,
+				2C7C83D81B677C3700D12701 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BBCodeParser_OSX;
+			productName = BBCodeParser_OSX;
+			productReference = 2C7C83DA1B677C3700D12701 /* BBCodeParser_OSX.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		6003F5AD195388D20070C39A /* BBCodeParser */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "BBCodeParser" */;
@@ -151,8 +198,8 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Miha Rataj";
 				TargetAttributes = {
-					6003F5AD195388D20070C39A = {
-						TestTargetID = 6003F589195388D20070C39A;
+					2C7C83D91B677C3700D12701 = {
+						CreatedOnToolsVersion = 6.2;
 					};
 				};
 			};
@@ -170,11 +217,19 @@
 			projectRoot = "";
 			targets = (
 				6003F5AD195388D20070C39A /* BBCodeParser */,
+				2C7C83D91B677C3700D12701 /* BBCodeParser_OSX */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2C7C83D81B677C3700D12701 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6003F5AC195388D20070C39A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -219,6 +274,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2C7C83D61B677C3700D12701 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C7C83DF1B677C3700D12701 /* BBCodeParser_OSX.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6003F5AA195388D20070C39A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -241,6 +304,50 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2C7C83E01B677C3700D12701 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = BBCodeParser_OSX/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2C7C83E11B677C3700D12701 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = BBCodeParser_OSX/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		6003F5BD195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -330,7 +437,6 @@
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -348,7 +454,6 @@
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -356,6 +461,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2C7C83E21B677C3700D12701 /* Build configuration list for PBXNativeTarget "BBCodeParser_OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C7C83E01B677C3700D12701 /* Debug */,
+				2C7C83E11B677C3700D12701 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		6003F585195388D10070C39A /* Build configuration list for PBXProject "BBCodeParser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

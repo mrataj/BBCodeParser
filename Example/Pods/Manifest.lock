@@ -6,9 +6,9 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   BBCodeParser:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  BBCodeParser: a92eb781731ffa8cb7a8f4733dfa6efe7dd0256c
+  BBCodeParser: d5f83082b904b5af59f832f10c81606c8553777e
 
-COCOAPODS: 0.36.3
+COCOAPODS: 0.37.1
