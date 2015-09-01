@@ -14,10 +14,10 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
                        To use this library in your project, copy files in BBCodeParser folder into your project. Then, include "BBCodeParser.h" file wherever you want to parse your code.
                        DESC
-  s.homepage         = "https://github.com/ivany4/BBCodeParser"
+  s.homepage         = "https://github.com/mrataj/BBCodeParser"
   s.license          = 'MIT'
   s.author           = { "Miha Rataj" => "rataj.miha@gmail.com" }
-  s.source           = { :git => "https://github.com/ivany4/BBCodeParser.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/mrataj/BBCodeParser.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/miharataj'
 
   s.ios.deployment_target = '7.0'
