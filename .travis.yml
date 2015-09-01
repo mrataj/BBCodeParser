@@ -6,6 +6,6 @@ before_script:
 
 xcode_workspace: Example/BBCodeParser.xcworkspace
 
-xcode_scheme: BBCodeParser-Example
+xcode_scheme: iOS
 
 xcode_sdk: iphonesimulator
