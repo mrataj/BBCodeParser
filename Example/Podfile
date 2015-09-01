@@ -1,4 +1,8 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-target
-pod "BBCodeParser", :path => "../"
+
+target 'BBCodeParser', :exclusive => true do
+  pod "BBCodeParser", :path => "../"
+
+  
+end

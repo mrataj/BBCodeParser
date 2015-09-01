@@ -1,0 +1,14 @@
+PODS:
+  - BBCodeParser (0.1.0)
+
+DEPENDENCIES:
+  - BBCodeParser (from `../`)
+
+EXTERNAL SOURCES:
+  BBCodeParser:
+    :path: ../
+
+SPEC CHECKSUMS:
+  BBCodeParser: a92eb781731ffa8cb7a8f4733dfa6efe7dd0256c
+
+COCOAPODS: 0.36.3
