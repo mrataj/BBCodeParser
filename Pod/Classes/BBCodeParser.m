@@ -197,42 +197,44 @@ static NSString *__closingTag = @"/";
     
     for (int i = 0; i < [_code length]; i++)
     {
-        // Check if current character is announcing starting of new tag.
-        NSString *currentCharacter = [_code substringWithRange:NSMakeRange(i, 1)];
-        if ([currentCharacter isEqualToString:__startTag] && [self textStartsWithAllowedTag:[_code substringFromIndex:i]])
-        {
-            _currentTag = [[NSMutableString alloc] init];
-            _readingTag = YES;
-        }
-        
-        // Otherwise, check if we just read the tag.
-        else if ([currentCharacter isEqualToString:__endTag] && _currentTag != nil)
-        {
-            if ([_currentTag hasPrefix:__closingTag])
+        @@autoreleasepool {
+            // Check if current character is announcing starting of new tag.
+            NSString *currentCharacter = [_code substringWithRange:NSMakeRange(i, 1)];
+            if ([currentCharacter isEqualToString:__startTag] && [self textStartsWithAllowedTag:[_code substringFromIndex:i]])
             {
-                NSString *trimmedTag = [_currentTag substringFromIndex:1];
-                [self parseFinishedForTag:trimmedTag];
-            }
-            else
-            {
-                [self parseStartedForTag:_currentTag];
+                _currentTag = [[NSMutableString alloc] init];
+                _readingTag = YES;
             }
             
-            _currentTag = nil;
-            
-            _readingTag = NO;
-        }
-        
-        // Otherwise just read.
-        else
-        {
-            if (_readingTag)
+            // Otherwise, check if we just read the tag.
+            else if ([currentCharacter isEqualToString:__endTag] && _currentTag != nil)
             {
-                [_currentTag appendString:currentCharacter];
+                if ([_currentTag hasPrefix:__closingTag])
+                {
+                    NSString *trimmedTag = [_currentTag substringFromIndex:1];
+                    [self parseFinishedForTag:trimmedTag];
+                }
+                else
+                {
+                    [self parseStartedForTag:_currentTag];
+                }
+                
+                _currentTag = nil;
+                
+                _readingTag = NO;
             }
+            
+            // Otherwise just read.
             else
             {
-                [self parseFound:currentCharacter];
+                if (_readingTag)
+                {
+                    [_currentTag appendString:currentCharacter];
+                }
+                else
+                {
+                    [self parseFound:currentCharacter];
+                }
             }
         }
     }
