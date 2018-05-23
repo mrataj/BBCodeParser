@@ -197,7 +197,7 @@ static NSString *__closingTag = @"/";
     
     for (int i = 0; i < [_code length]; i++)
     {
-        @@autoreleasepool {
+        @autoreleasepool {
             // Check if current character is announcing starting of new tag.
             NSString *currentCharacter = [_code substringWithRange:NSMakeRange(i, 1)];
             if ([currentCharacter isEqualToString:__startTag] && [self textStartsWithAllowedTag:[_code substringFromIndex:i]])
