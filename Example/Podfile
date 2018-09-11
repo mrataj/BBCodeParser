@@ -1,4 +1,9 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-
+target 'iOS Tests' do
 pod "BBCodeParser", :path => "../"
+end
+
+target 'OS X Tests' do
+	pod "BBCodeParser", :path => "../"
+end
