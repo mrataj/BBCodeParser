@@ -30,7 +30,7 @@
     static NSArray *tags;
     if (tags == nil)
     {
-        tags = [[NSArray alloc] initWithObjects:@"bold", @"quote", @"user", nil];
+        tags = [[NSArray alloc] initWithObjects:@"bold", @"quote", @"user", @"color", nil];
     }
     return tags;
 }
@@ -60,9 +60,13 @@
     BBElement *quoteElement = [parser.element.elements objectAtIndex:0];
     XCTAssertTrue([quoteElement.attributes count] == 2, @"There must be two attributes.");
     
-    BBAttribute *attribute = [quoteElement.attributes objectAtIndex:0];
-    XCTAssertTrue([attribute.name isEqualToString:@"user"], @"Invalid attribute name");
-    XCTAssertTrue([attribute.value isEqualToString:@"23"], @"Invalid attribute value");
+    BBAttribute *firstAttribute = [quoteElement.attributes objectAtIndex:0];
+    XCTAssertTrue([firstAttribute.name isEqualToString:@"user"], @"Invalid attribute name");
+    XCTAssertTrue([firstAttribute.value isEqualToString:@"23"], @"Invalid attribute value");
+	
+	BBAttribute *secondAttribute = [quoteElement.attributes objectAtIndex:1];
+	XCTAssertTrue([secondAttribute.name isEqualToString:@"name"], @"Invalid attribute name");
+	XCTAssertTrue([secondAttribute.value isEqualToString:@"David Cole"], @"Invalid attribute value");
 }
 
 - (void)testInvalidTag
@@ -118,6 +122,44 @@
     
     BBElement *boldElement = [quoteElement.elements objectAtIndex:1];
     XCTAssertTrue(boldElement.startIndex == 30, @"Invalid start index");
+}
+
+- (void)testTagWithValue
+{
+	NSString *code = @"[color=#00FF00]Hexa color Grün[/color]";
+	
+	NSArray *tags = [BBCodeParserTests getTags];
+	BBCodeParser *parser = [[BBCodeParser alloc] initWithTags:tags];
+	[parser setCode:code];
+	[parser parse];
+	
+	BBElement *colorElement = [parser.element.elements objectAtIndex:0];
+	BBAttribute *attribute = colorElement.attributes.firstObject;
+	BOOL attributeNotFound = attribute != nil;
+	XCTAssertTrue(attributeNotFound, @"Attribute in tag with value not found");
+	BOOL attributeTagNameValid = [attribute.name isEqualToString:@"color"];
+	XCTAssertTrue(attributeTagNameValid, @"Attribute name in tag with value not valid");
+	BOOL attributeTagValueValid = [attribute.value isEqualToString:@"#00FF00"];
+	XCTAssertTrue(attributeTagValueValid, @"Attribute value in tag with value not valid");
+}
+
+- (void)testTagWithStringValue
+{
+	NSString *code = @"[color=\"#00FF00 \"]Hexa color Grün[/color]";
+	
+	NSArray *tags = [BBCodeParserTests getTags];
+	BBCodeParser *parser = [[BBCodeParser alloc] initWithTags:tags];
+	[parser setCode:code];
+	[parser parse];
+	
+	BBElement *colorElement = [parser.element.elements objectAtIndex:0];
+	BBAttribute *attribute = colorElement.attributes.firstObject;
+	BOOL attributeNotFound = attribute != nil;
+	XCTAssertTrue(attributeNotFound, @"Attribute in tag with value not found");
+	BOOL attributeTagNameValid = [attribute.name isEqualToString:@"color"];
+	XCTAssertTrue(attributeTagNameValid, @"Attribute name in tag with value not valid");
+	BOOL attributeTagValueValid = [attribute.value isEqualToString:@"#00FF00"];
+	XCTAssertTrue(attributeTagValueValid, @"Attribute value in tag with value not valid");
 }
 
 @end

@@ -65,54 +65,68 @@ static NSString *__closingTag = @"/";
 
 - (NSArray *)getAttributesFromTag:(NSString *)tag
 {
-    NSArray *components = [tag componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSString *tagName = [components objectAtIndex:0];
-    
-    NSString *attributeString = [tag substringFromIndex:[tagName length]];
-    
-    BOOL parsingName = YES, parsingValue = NO;
-    NSMutableString *currentName = [NSMutableString string], *currentValue = nil;
-    
-    NSMutableArray *attributes = [NSMutableArray array];
-    for (int i = 0; i < [attributeString length]; i++)
-    {
-        NSString *currentCharacter = [attributeString substringWithRange:NSMakeRange(i, 1)];
-                
-        if (parsingName && ![currentCharacter isEqualToString:@"="])
-            [currentName appendString:currentCharacter];
-        
-        else if (parsingValue && ![currentCharacter isEqualToString:@"\""])
-            [currentValue appendString:currentCharacter];
-        
-        if ([currentCharacter isEqualToString:@"="] && parsingName)
-        {
-            // We ended parsing name
-            parsingValue = YES;
-            parsingName = NO;
-            currentValue = [NSMutableString string];
-        }
-        else if ([currentCharacter isEqualToString:@"\""] && parsingValue)
-        {
-            // We ended parsing value
-            if ([currentValue length] != 0)
-            {
-                // If we didn't parse last character and next character is not space, that means that quote doesn't represent end of value.
-                if (i + 1 < [attributeString length] && ![[attributeString substringWithRange:NSMakeRange(i + 1, 1)] isEqualToString:@" "])
-                    break;
-                
-                BBAttribute *attribute = [[BBAttribute alloc] init];
-                [attribute setName:[currentName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-                [attribute setValue:[currentValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-                [attributes addObject:attribute];
-                
-                parsingValue = NO;
-                parsingName = YES;
-                currentName = [NSMutableString string];
-            }
-        }
-    }
-    
-    return attributes;
+	NSArray *tagComponents = [self getComponentsFrom:tag];//[tag componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+	
+	NSMutableArray *attributes = [NSMutableArray array];
+	for (NSString *component in tagComponents)
+	{
+		NSArray *splitTagComponent = [component componentsSeparatedByString:@"="];
+		
+		BOOL isComponentValidForAttribute = splitTagComponent.count == 2;
+		
+		if (isComponentValidForAttribute == false)
+		{
+			continue;
+		}
+		
+		NSString *name = splitTagComponent[0];
+		NSString *value = splitTagComponent[1];
+		NSString *apostropheTrimmedValue = [value stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\""]]; // how to improve this
+		BBAttribute *attribute = [[BBAttribute alloc] init];
+		
+		[attribute setName:[name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+		[attribute setValue:[apostropheTrimmedValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+		[attributes addObject:attribute];
+	}
+	
+	return attributes;
+}
+
+- (NSArray*)getComponentsFrom:(NSString *)tag{
+	NSMutableArray *components = NSMutableArray.array;
+	
+	NSMutableString *componentName = [NSMutableString string];
+	BOOL whiteSpaceValid = true;
+	NSUInteger tagLength =  [tag length];
+	
+	for (int i = 0; i < tagLength; i++)
+	{
+		NSString *currentCharacter = [tag substringWithRange:NSMakeRange(i, 1)];
+		
+		BOOL isLastCharacter = i + 1 >= tagLength;
+		if (isLastCharacter)
+		{
+			[componentName appendString:currentCharacter];
+			[components addObject: componentName];
+			break;
+		}
+		
+		if ([currentCharacter isEqualToString:@"\""]) {
+			whiteSpaceValid = !whiteSpaceValid;
+		}
+		
+		BOOL shouldGenerateNewComponent = whiteSpaceValid && [currentCharacter isEqualToString: @" "];
+		if (shouldGenerateNewComponent)
+		{
+			[components addObject: componentName];
+			componentName = [NSMutableString string];
+			continue;
+		}
+		
+		[componentName appendString:currentCharacter];
+	}
+
+	return components;
 }
 
 - (BOOL)textStartsWithAllowedTag:(NSString *)text
